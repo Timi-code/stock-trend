@@ -10,6 +10,7 @@ const currentDataSubject$ = new Subject();
 let code = 'zzlt';
 const indexChart = new Chart(document.querySelector('#indexChart'));
 document.querySelector('#indexCode').addEventListener('change', function (ev) {
+    indexChart.clear();
     code = this.value;
     todayDataSubject$.next();
     yestodayDataSubject$.next();
@@ -18,22 +19,25 @@ document.querySelector('#indexCode').addEventListener('change', function (ev) {
 
 const yestodayData = yestodayDataSubject$.pipe(
     switchMap(() => ajax('get', 'http://101.200.206.6/api/get_index_tick_yestoday.php', { code: code })),
-    map(({ response }) => Array.isArray(response) ? response : [])
+    map(({ response }) => Array.isArray(response) ? response : []),
+    retry(3)
 )
 const todayData = todayDataSubject$.pipe(
     switchMap(() => ajax('get', 'http://101.200.206.6/api/get_index_tick.php', { code: code })),
-    map(({ response }) => Array.isArray(response) ? response : [])
+    map(({ response }) => Array.isArray(response) ? response : []),
+    retry(3)
 )
 const currentData = currentDataSubject$.pipe(
     switchMap(() => ajax('get', 'http://101.200.206.6/api/get_current_money_compare.php', { code: code })),
-    map(({ response }) => response)
+    map(({ response }) => response),
+    retry(3)
 )
 
 yestodayData.subscribe(res => {
     const yestoday_data = transformData(res, 100000000);
     indexChart.update({
         xAxis: {
-            data: yestoday_data.map(item => item[0])
+            data: yestoday_data.map(item => item[0].slice(0, 5))
         },
         series: [{
 

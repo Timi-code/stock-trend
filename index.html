@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stock</title>
-    <script src="https://cdn.bootcss.com/echarts/4.4.0-rc.1/echarts.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.5.0/echarts.min.js"></script>
     <script src="https://cdn.bootcss.com/lodash.js/4.17.15/lodash.min.js"></script>
     <script src="https://cdn.bootcss.com/rxjs/6.5.3/rxjs.umd.min.js"></script>
     <style>
@@ -105,7 +105,7 @@
     </div>
     <script>
         const { Subject, forkJoin, interval } = rxjs;
-        const { map, switchMap } = rxjs.operators;
+        const { map, switchMap, retry } = rxjs.operators;
         const yestoday_color = 'blue';
         const today_color = 'red';
     </script>

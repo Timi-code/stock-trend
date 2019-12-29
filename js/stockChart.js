@@ -57,6 +57,7 @@ todayData.subscribe(res => {
 })
 
 document.getElementById('stockCode').addEventListener('keypress', function (ev) {
+    stockChart.clear();
     code = this.value.trim();
     if (ev.keyCode === 13) {
         clearTimeout(timer)

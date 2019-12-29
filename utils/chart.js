@@ -92,7 +92,11 @@ export class Chart {
         this.chart.setOption(this.options);
     }
 
-    updateOptions (options) {
+    updateOptions(options) {
         this.options = _.merge(this.options, options);
+    }
+
+    clear() {
+        this.chart.clear();
     }
 }
