@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stock</title>
     <script src="https://cdn.bootcss.com/echarts/4.4.0-rc.1/echarts.min.js"></script>
-    <script src="https://cdn.bootcss.com/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdn.bootcss.com/lodash.js/4.17.15/lodash.min.js"></script>
+    <script src="https://cdn.bootcss.com/rxjs/6.5.3/rxjs.umd.min.js"></script>
     <style>
         * {
             padding: 0;
@@ -104,6 +104,8 @@
         </div>
     </div>
     <script>
+        const { Subject, forkJoin, interval } = rxjs;
+        const { map, switchMap } = rxjs.operators;
         const yestoday_color = 'blue';
         const today_color = 'red';
     </script>

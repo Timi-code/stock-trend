@@ -1,4 +1,4 @@
-import { request } from '../utils/ajax.js';
+import { ajax } from '../utils/ajax.js';
 import { Chart } from '../utils/chart.js';
 
 // 流动性溢价因子
@@ -18,8 +18,9 @@ liquidityChart.updateOptions({
 getYestodayLiquidityData();
 
 function getYestodayLiquidityData() {
-    request(`http://101.200.206.6/api/get_liquidity_premium.php`)
-        .then(res => {
+    ajax('get', 'http://101.200.206.6/api/get_liquidity_premium.php')
+        .pipe(map(({ response }) => Array.isArray(response) ? response : []))
+        .subscribe(res => {
             liquidityChart.update({
                 title: {
                     text: '流动性溢价因子'
@@ -35,11 +36,14 @@ function getYestodayLiquidityData() {
                 },
                 series: [{
                     name: '未加权',
-                    data: res.map(item => item.liquidity_premium)
+                    data: res.map(item => item.liquidity_premium.toFixed(2))
                 }, {
                     name: '加权',
-                    data: res.map(item => item.liquidity_premium_weighted)
+                    data: res.map(item => item.liquidity_premium_weighted.toFixed(2))
                 }]
             })
+            setTimeout(() => {
+                getYestodayLiquidityData();
+            }, 3000);
         })
 }
