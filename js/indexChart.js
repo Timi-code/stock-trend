@@ -58,11 +58,12 @@ todayData.subscribe(res => {
     }, 3000);
 })
 currentData.subscribe(res => {
-    document.querySelector('#yestodayMoney').innerHTML = `${Math.ceil(res.yestoday_data.money / 100000000)}亿元`;
-    document.querySelector('#todayMoney').innerHTML = `${Math.ceil(res.today_data.money / 100000000)}亿元`;
     setTimeout(() => {
         currentDataSubject$.next();
     }, 3000);
+    if (!res) return;
+    document.querySelector('#yestodayMoney').innerHTML = `${Math.ceil(res.yestoday_data.money / 100000000)}亿元`;
+    document.querySelector('#todayMoney').innerHTML = `${Math.ceil(res.today_data.money / 100000000)}亿元`;
 })
 
 yestodayDataSubject$.next();
