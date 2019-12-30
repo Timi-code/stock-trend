@@ -80,6 +80,7 @@
             <p id="loading">loading</p>
             <div id="indexChart" style="width: 100%;height:600px;"></div>
             <p id="compare">
+                <button id="destroyIndex">重置</button>
                 <select id="indexCode">
                     <option value="ZZLT">中证流通</option>
                     <option value="SZZS">深证综指</option>
@@ -97,10 +98,12 @@
         </div>
         <div class="stock">
             <div id="stockChart" style="width: 100%; height: 600px;"></div>
+            <button id="destroyStock">重置</button>
             <input type="text" id="stockCode">
         </div>
         <div class="liquidity">
             <div id="liquidityChart" style="width: 100%; height: 600px;"></div>
+            <button id="destroyLiquidity">重置</button>
         </div>
     </div>
     <script>

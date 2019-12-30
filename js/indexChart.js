@@ -68,3 +68,8 @@ currentData.subscribe(res => {
 yestodayDataSubject$.next();
 todayDataSubject$.next();
 currentDataSubject$.next();
+
+document.querySelector('#destroyIndex').addEventListener('click', function () {
+    indexChart.clear();
+    yestodayDataSubject$.next();
+})

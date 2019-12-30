@@ -4,6 +4,15 @@ import { Chart } from '../utils/chart.js';
 // 流动性溢价因子
 const liquidityChart = new Chart(document.querySelector('#liquidityChart'));
 liquidityChart.updateOptions({
+    title: {
+        text: '流动性溢价因子'
+    },
+    legend: {
+        data: ['未加权', '加权']
+    },
+    yAxis: {
+        name: ''
+    },
     series: [{
         showSymbol: true,
         symbolSize: 6,
@@ -19,20 +28,11 @@ getYestodayLiquidityData();
 
 function getYestodayLiquidityData() {
     ajax('get', 'http://101.200.206.6/api/get_liquidity_premium.php')
-        .pipe(map(({ response }) => Array.isArray(response) ? response : []))
+        .pipe(retry(3), map(({ response }) => Array.isArray(response) ? response : []))
         .subscribe(res => {
             liquidityChart.update({
-                title: {
-                    text: '流动性溢价因子'
-                },
-                legend: {
-                    data: ['未加权', '加权']
-                },
                 xAxis: {
                     data: res.map(item => item.date)
-                },
-                yAxis: {
-                    name: ''
                 },
                 series: [{
                     name: '未加权',
@@ -47,3 +47,8 @@ function getYestodayLiquidityData() {
             }, 3000);
         })
 }
+
+document.querySelector('#destroyLiquidity').addEventListener('click', function() {
+    liquidityChart.clear();
+    getYestodayLiquidityData();
+})

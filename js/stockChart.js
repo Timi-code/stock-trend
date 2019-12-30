@@ -64,3 +64,8 @@ document.getElementById('stockCode').addEventListener('keypress', function (ev) 
         yestodayDataSubject$.next();
     }
 })
+
+document.querySelector('#destroyStock').addEventListener('click', function () {
+    stockChart.clear();
+    yestodayDataSubject$.next();
+})
